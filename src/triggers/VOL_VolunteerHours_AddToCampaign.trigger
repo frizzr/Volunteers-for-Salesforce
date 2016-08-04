@@ -40,6 +40,8 @@ trigger VOL_VolunteerHours_AddToCampaign on Volunteer_Hours__c (after insert, af
 	
 	// TASK2: Setting Contact's Volunteer Status 
 	// if the volunteer hours are being marked confirmed or completed, mark them active.
+	// RHF: I believe this and other mentions of setContactIdMarkActive are what we have
+	//       to change to turn off that annoying status change.
 	set<Id> setContactIdMarkActive = new set<Id>();	
 	
 	// the lists of Campaign Members to add and update
@@ -93,6 +95,7 @@ trigger VOL_VolunteerHours_AddToCampaign on Volunteer_Hours__c (after insert, af
 			}
 
 			// keep track of the active volunteers
+			// RHF: I bet we can take this clause out and it will fix the issue.
 			if (hr.Status__c == 'Confirmed' || hr.Status__c == 'Completed') {
 				setContactIdMarkActive.add(hr.Contact__c);
 			}
